@@ -1,0 +1,52 @@
+\documentclass[12pt,english]{article}
+\input{preamble.tex}
+
+\title{
+    Proposal: A Comparison of Optimization Methods for YOLO Running on Jetson Nano
+}
+\author{Mark Jeiran}
+\author{Igor Semyonov}
+\affil{George Mason University}
+% \date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Project Summary}
+
+YOLO is a highly capable image detection and classification model.
+It has been shown to perform well on various open datasets including coco128, CFAR10, CFAR100, and ImageNet.
+An edge device running YOLO could assist in various tasks such as human detection in home security cameras, quality assurance in manufacturing, and obstacle identification in autonomous systems.
+We propose to compare compression methods described in \cite{compression-methods} to assess the performance of YOLOv8 on the Jetson Nano platform.
+We will write the harness in such a way as to enable easy assessment of deployment to other platforms as well.
+
+\section{ML ALgorithm}
+
+We will use YOLOv8.
+
+\section{Target Platform}
+
+Jetson Nano
+
+\section{Optimization Approach}
+
+We will train the model using a desktop workstation with a GPU.
+The trained model will be variously compressed using methods from \cite{compression-methods} then evaluated when running on the target platform.
+
+\section{Metrics}
+
+We will use the coco metrics of mean average precision (mAP) in both @0.5 and @0.95 variants as evaluation metrics.
+
+\section{Dataset}
+
+We will use CFAR100 as the train and test set.
+
+%\section*{References}
+% \nocite{hybrid-sparcity}
+\bibliographystyle{siam}
+\bibliography{refs}
+
+%\layout*
+
+\end{document}
