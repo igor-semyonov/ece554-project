@@ -23,58 +23,24 @@ We will write the harness in such a way as to enable easy assessment of deployme
 
 \section{ML ALgorithm}
 
-We will use YOLOv5 in this project.
-As mentioned earlier, You Only Look Once (YOLO) is a popular object detection model.
-The model is well known for its accuracy and efficiency.
-\figref{fig:yolo-structure} shows  an overall structure of YOLO v5 as shown in Figure 1:
-
-\begin{figure}[h]
-    \includegraphics[width=0.8\linewidth]{yolo-structure}
-    \caption{YOLOv5 architecture \cite{compression-methods}}
-    \label{fig:yolo-structure}
-\end{figure}
-
-Backbone: YOLO v5 supports various backbone architectures.
-The backbone is a convolutional neural network (CNN), which acts as a feature extractor from the input image.
-
-Detection Neck: Features extracted from the backbone are fed into the neck, which further process them.
-Feature fusion, dimensionality reduction, and spatial aggregation are often used to enhance the representation of features.
-
-Detection Head: Detection head as the last layer is comprised of convolutional layers to predict bounding boxes and class probabilities.
-Typically, each predicted bounding box includes coordinates (x, y) for the box's center, width, and height, along with confidence scores for object presence and class probabilities.
+We will use YOLOv8.
 
 \section{Target Platform}
 
-Jetson Nano (16GB).
-NVIDIA Jetson Nano is a low-cost AI computer.
-It delivers the compute performance to run modern AI workloads at unprecedented size.
-It is incredibly power-efficient, consuming as little as 5 watts.
+Jetson Nano
 
 \section{Optimization Approach}
 
 We will train the model using a desktop workstation with a GPU.
-The model will be optimized using Quantization-Aware Training (QAT) and Post-Training Quantization (PTQ) methods.
-QAT is the quantization of a pre-trained model then finetuning using training data to improve accuracy.
-The calibration process frequently occurs concurrently with the finetuning process in QAT.
-However, in PTQ a pre-trained model is calibrated using as a small subset of training data, to determine clipping ranges and scaling factors, then the model is quantized according to the calibration outcomes [2].
-The primary difference in the methodology of these two methods is illustrated in \figref{fig:ptq-vs-qat}.
-
-\begin{figure}[h]
-    \includegraphics[width=0.8\linewidth]{ptq-vs-qat}
-    \caption{PTQ vs QAT quantization process comparison \cite{quantization-methods}}
-    \label{fig:ptq-vs-qat}
-\end{figure}
+The trained model will be variously compressed using methods from \cite{compression-methods} then evaluated when running on the target platform.
 
 \section{Metrics}
 
-We will evaluate the efficacy of our compression methods using GFLOPS vs Accuracy and number of Parameters vs Accuracy.
-We will also use the coco metrics of mean average precision (mAP) in both @0.5 and @0.95 variants as evaluation metrics.
+We will use the coco metrics of mean average precision (mAP) in both @0.5 and @0.95 variants as evaluation metrics.
 
 \section{Dataset}
 
 We will use CFAR100 as the train and test set.
-CIFAR100 has 60,000 32x32 color images in 100 classes, with 600 images per class.
-These images are split into 50,000 training images and 10,000 test images.
 
 %\section*{References}
 % \nocite{hybrid-sparcity}
