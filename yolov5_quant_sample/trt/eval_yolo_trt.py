@@ -21,8 +21,8 @@ from utils.general import coco80_to_coco91_class
 # converts 80-index (val2014) to 91-index (paper)
 coco91class = coco80_to_coco91_class()
 
-VAL_IMGS_DIR = '../coco/images/val2017'
-VAL_ANNOTATIONS = '../coco/annotations/instances_val2017.json'
+VAL_IMGS_DIR = r'../coco/images/val2017'
+VAL_ANNOTATIONS = r'../coco/annotations/instances_val2017.json'
 
 def parse_args():
     """Parse input arguments."""
