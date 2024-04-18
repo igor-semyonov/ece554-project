@@ -1,0 +1,32 @@
+# Start FROM Nvidia Tensorrt image
+#FROM nvcr.io/nvidia/tensorrt:21.09-py3
+#From nvcr.io/nvidia/l4t-base:r32.2.1
+From nvcr.io/nvidia/l4t-tensorrt:r8.0.1-runtime
+
+# Allow external applications to connect to the host's X display:
+#     xhost +
+#     Run the docker container using the docker command
+#     sudo docker run -it --rm --net=host --runtime nvidia -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix nvcr.io/nvidia/l4t-tensorrt:r8.0.1-runtime
+#     Option explained:
+    
+#     -it means run in interactive mode
+#     --rm will delete the container when finished
+#     --runtime nvidia will use the NVIDIA container runtime while running the l4t-base container
+#     -v is the mounting directory, and used to mount host's X11 display in the container filesystem to render output videos
+#     r8.0.1 is the tag for the image corresponding to the tensorrt release
+
+# Install linux packages
+RUN apt update && apt install -y libgl1-mesa-dev
+
+# Install python dependencies
+COPY requirements.txt .
+RUN python -m pip install --upgrade pip && pip install --no-cache -r requirements.txt && pip install --no-cache jupyter
+RUN pip install --no-cache torch==1.9.1+cu111 torchvision==0.10.1+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+
+# Install pytorch-quantization toolkit
+#RUN pip install pytorch-quantization --extra-index-url https://pypi.ngc.nvidia.com
+RUN pip install --no-cache-dir --index-url https://pypi.nvidia.com --index-url https://pypi.org/simple pytorch-quantization==2.1.3
+
+# Create working directory
+RUN mkdir -p /root/space/projects
+WORKDIR /root/space/projects

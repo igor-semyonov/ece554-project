@@ -12,6 +12,7 @@ RUN pip install --no-cache torch==1.9.1+cu111 torchvision==0.10.1+cu111 -f https
 # Install pytorch-quantization toolkit
 #RUN pip install pytorch-quantization --extra-index-url https://pypi.ngc.nvidia.com
 RUN pip install --no-cache-dir --index-url https://pypi.nvidia.com --index-url https://pypi.org/simple pytorch-quantization==2.1.3
+# pip download torch==1.9.1+cu102 torchvision==0.10.1+cu102 -f https://download.pytorch.org/whl/torch_stable.html
 
 # Create working directory
 RUN mkdir -p /root/space/projects
